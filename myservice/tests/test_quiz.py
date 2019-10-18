@@ -804,3 +804,104 @@ class TestApp(unittest.TestCase):
             "total_questions": 3
         }
         )
+
+    def test3(self):
+        app = tested_app.test_client()
+
+        # create a quiz
+        reply = app.post('/quizzes',
+                         data=json.dumps({
+                             "questions": [
+                                 {
+                                     "question": "What's the answer to all questions?",
+                                     "answers": [
+                                         {
+                                             "answer": "33",
+                                             "correct": 0
+                                         },
+                                         {
+                                             "answer": "42",
+                                             "correct": 1
+                                         },
+                                         {
+                                             "answer": "1",
+                                             "correct": 0
+                                         }
+                                     ]
+                                 },
+                                 {
+                                     "question": "What's the answer to all questions?",
+                                     "answers": [
+                                         {
+                                             "answer": "33",
+                                             "correct": 0
+                                         },
+                                         {
+                                             "answer": "42",
+                                             "correct": 1
+                                         },
+                                         {
+                                             "answer": "1",
+                                             "correct": 0
+                                         }
+                                     ]
+                                 }
+                             ]
+                         }),
+                         content_type='application/json')
+
+        body = json.loads(str(reply.data, 'utf8'))
+        self.assertEqual(body['quiznumber'], 4)
+
+        # delete quiz
+        reply = app.delete('/quiz/0')
+        body = json.loads(str(reply.data, 'utf8'))
+        self.assertEqual(body, {
+            "answered_questions": -1,
+            "total_questions": 2
+        })
+
+        # create a quiz
+        reply = app.post('/quizzes',
+                         data=json.dumps({
+                             "questions": [
+                                 {
+                                     "question": "What's the answer to all questions?",
+                                     "answers": [
+                                         {
+                                             "answer": "33",
+                                             "correct": 0
+                                         },
+                                         {
+                                             "answer": "42",
+                                             "correct": 1
+                                         },
+                                         {
+                                             "answer": "1",
+                                             "correct": 0
+                                         }
+                                     ]
+                                 },
+                                 {
+                                     "question": "What's the answer to all questions?",
+                                     "answers": [
+                                         {
+                                             "answer": "33",
+                                             "correct": 0
+                                         },
+                                         {
+                                             "answer": "42",
+                                             "correct": 1
+                                         },
+                                         {
+                                             "answer": "1",
+                                             "correct": 0
+                                         }
+                                     ]
+                                 }
+                             ]
+                         }),
+                         content_type='application/json')
+
+        body = json.loads(str(reply.data, 'utf8'))
+        self.assertEqual(body['quiznumber'], 5)
