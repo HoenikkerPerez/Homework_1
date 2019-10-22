@@ -16,7 +16,7 @@ command-not-found==0.3
 configparser==4.0.2
 coverage==4.5.1
 coveralls==1.5.1
-cryptography==2.1.4
+cryptography==2.3
 cupshelpers==1.0
 dateparser==0.7.0
 decorator==4.3.0
